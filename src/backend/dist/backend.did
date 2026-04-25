@@ -1,0 +1,222 @@
+type WorkoutRoutine = 
+ record {
+   description: text;
+   exerciseIds: vec Id;
+   fitnessLevel: FitnessLevel;
+   id: Id;
+   name: text;
+ };
+type WorkoutLogEntry = 
+ record {
+   completed: bool;
+   date: Timestamp;
+   id: Id;
+   notes: text;
+   routineName: text;
+   userId: UserId;
+ };
+type WeeklyStats = 
+ record {
+   averageBMI: float64;
+   averageDailyCalories: float64;
+   streak: nat;
+   totalWorkouts: nat;
+   weekStartDate: text;
+ };
+type UserProfilePublic = 
+ record {
+   activityLevel: ActivityLevel;
+   age: nat;
+   createdAt: Timestamp;
+   dietaryPreference: DietaryPreference;
+   gender: Gender;
+   goal: Goal;
+   heightCm: float64;
+   id: UserId;
+   name: text;
+   weightKg: float64;
+ };
+type UserId = principal;
+type UpdateProfileRequest = 
+ record {
+   activityLevel: opt ActivityLevel;
+   age: opt nat;
+   dietaryPreference: opt DietaryPreference;
+   gender: opt Gender;
+   goal: opt Goal;
+   heightCm: opt float64;
+   name: opt text;
+   weightKg: opt float64;
+ };
+type Timestamp = int;
+type ProgressRecord = 
+ record {
+   bmi: float64;
+   dailyCalories: nat;
+   date: text;
+   id: Id;
+   userId: UserId;
+   weightKg: float64;
+   workoutsCompleted: nat;
+ };
+type MuscleGroup = 
+ variant {
+   Arms;
+   Back;
+   Cardio;
+   Chest;
+   Core;
+   FullBody;
+   Legs;
+ };
+type MealCategory = 
+ variant {
+   Breakfast;
+   Dinner;
+   Lunch;
+   Snack;
+ };
+type Meal = 
+ record {
+   calories: nat;
+   carbsG: float64;
+   category: MealCategory;
+   description: text;
+   fatG: float64;
+   id: Id;
+   isVegetarian: bool;
+   name: text;
+   prepTimeMinutes: nat;
+   proteinG: float64;
+ };
+type LogWorkoutRequest = 
+ record {
+   completed: bool;
+   notes: text;
+   routineName: text;
+ };
+type Id = nat;
+type HealthSummary = 
+ record {
+   bmiCategory: BMICategory;
+   dailyCaloricNeeds: float64;
+   latestBMI: float64;
+   latestBMR: float64;
+ };
+type HealthMetricLog = 
+ record {
+   bmi: float64;
+   bmiCategory: BMICategory;
+   bmr: float64;
+   heightCm: float64;
+   id: Id;
+   timestamp: Timestamp;
+   userId: UserId;
+   weightKg: float64;
+ };
+type Goal = 
+ variant {
+   GainWeight;
+   LoseWeight;
+   Maintain;
+ };
+type Gender = 
+ variant {
+   Female;
+   Male;
+ };
+type FoodLogEntry = 
+ record {
+   calories: nat;
+   id: Id;
+   mealName: text;
+   timestamp: Timestamp;
+   userId: UserId;
+ };
+type FitnessLevel = 
+ variant {
+   Advanced;
+   Beginner;
+   Intermediate;
+ };
+type Exercise = 
+ record {
+   description: text;
+   durationSecs: opt nat;
+   fitnessLevel: FitnessLevel;
+   id: Id;
+   muscleGroup: MuscleGroup;
+   name: text;
+   reps: opt nat;
+   youtubeUrl: text;
+ };
+type DietaryPreference = 
+ variant {
+   NonVegetarian;
+   Vegetarian;
+ };
+type DietPlan = 
+ record {
+   dailyCaloricTarget: nat;
+   meals: vec Meal;
+   userId: UserId;
+ };
+type CreateProfileRequest = 
+ record {
+   activityLevel: ActivityLevel;
+   age: nat;
+   dietaryPreference: DietaryPreference;
+   gender: Gender;
+   goal: Goal;
+   heightCm: float64;
+   name: text;
+   weightKg: float64;
+ };
+type BMICategory = 
+ variant {
+   Normal;
+   Obese;
+   Overweight;
+   Underweight;
+ };
+type AddFoodLogRequest = 
+ record {
+   calories: nat;
+   mealName: text;
+ };
+type ActivityLevel = 
+ variant {
+   ExtraActive;
+   LightlyActive;
+   ModeratelyActive;
+   Sedentary;
+   VeryActive;
+ };
+service : {
+  addFoodLog: (req: AddFoodLogRequest) -> (FoodLogEntry);
+  createMyProfile: (req: CreateProfileRequest) -> (UserProfilePublic);
+  getExerciseById: (exerciseId: Id) -> (opt Exercise) query;
+  getExercises: (muscleGroup: opt MuscleGroup, fitnessLevel:
+   opt FitnessLevel) -> (vec Exercise) query;
+  getHealthLogs: () -> (vec HealthMetricLog) query;
+  getHealthSummary: () -> (opt HealthSummary) query;
+  getMealById: (mealId: Id) -> (opt Meal) query;
+  getMeals: (isVegetarian: opt bool, category: opt MealCategory) ->
+   (vec Meal) query;
+  getMyDietPlan: () -> (opt DietPlan) query;
+  getMyFoodLogs: () -> (vec FoodLogEntry) query;
+  getMyProfile: () -> (opt UserProfilePublic);
+  getMyWorkoutLogs: () -> (vec WorkoutLogEntry) query;
+  getProgressHistory: () -> (vec ProgressRecord) query;
+  getRecentProgress: (limitDays: nat) -> (vec ProgressRecord) query;
+  getRoutineById: (routineId: Id) -> (opt WorkoutRoutine) query;
+  getRoutines: (fitnessLevel: opt FitnessLevel) -> (vec WorkoutRoutine) query;
+  getTodayCalories: () -> (nat) query;
+  getWeeklyStats: () -> (opt WeeklyStats) query;
+  hasProfile: () -> (bool) query;
+  logHealthMetrics: () -> (HealthMetricLog);
+  logWorkout: (req: LogWorkoutRequest) -> (WorkoutLogEntry);
+  recordDailyProgress: (bmi: float64, weightKg: float64, dailyCalories: 
+   nat, workoutsCompleted: nat) -> (ProgressRecord);
+  updateMyProfile: (req: UpdateProfileRequest) -> (opt UserProfilePublic);
+}

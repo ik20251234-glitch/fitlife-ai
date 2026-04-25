@@ -1,0 +1,177 @@
+// Version: 1.0.0
+type ActivityLevel__321612004 =
+  {#ExtraActive; #LightlyActive; #ModeratelyActive; #Sedentary; #VeryActive};
+type BMICategory__235671061 = {#Normal; #Obese; #Overweight; #Underweight};
+type DietaryPreference__723506903 = {#NonVegetarian; #Vegetarian};
+type Exercise__676377649 =
+  {
+    description : Text;
+    durationSecs : ?Nat;
+    fitnessLevel : FitnessLevel__143429010;
+    id : Id__389469852;
+    muscleGroup : MuscleGroup__923327052;
+    name : Text;
+    reps : ?Nat;
+    youtubeUrl : Text
+  };
+type FitnessLevel__143429010 = {#Advanced; #Beginner; #Intermediate};
+type FoodLogEntry__726807189 =
+  {
+    calories : Nat;
+    id : Id__389469852;
+    mealName : Text;
+    timestamp : Timestamp__301639476;
+    userId : UserId__158757552
+  };
+type Gender__322156353 = {#Female; #Male};
+type Goal__390734731 = {#GainWeight; #LoseWeight; #Maintain};
+type HealthMetricLog__366084782 =
+  {
+    bmi : Float;
+    bmiCategory : BMICategory__235671061;
+    bmr : Float;
+    heightCm : Float;
+    id : Id__389469852;
+    timestamp : Timestamp__301639476;
+    userId : UserId__158757552;
+    weightKg : Float
+  };
+type Id__389469852 = Nat;
+type Int__270357528 = Int__616954475;
+type Int__616954475 = Int;
+type MealCategory__34537441 = {#Breakfast; #Dinner; #Lunch; #Snack};
+type Meal__906604321 =
+  {
+    calories : Nat;
+    carbsG : Float;
+    category : MealCategory__34537441;
+    description : Text;
+    fatG : Float;
+    id : Id__389469852;
+    isVegetarian : Bool;
+    name : Text;
+    prepTimeMinutes : Nat;
+    proteinG : Float
+  };
+type MuscleGroup__923327052 =
+  {#Arms; #Back; #Cardio; #Chest; #Core; #FullBody; #Legs};
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type ProgressRecord__110713479 =
+  {
+    bmi : Float;
+    dailyCalories : Nat;
+    date : Text;
+    id : Id__389469852;
+    userId : UserId__158757552;
+    weightKg : Float;
+    workoutsCompleted : Nat
+  };
+type Time__796480547 = Int__270357528;
+type Time__900049286 = Time__796480547;
+type Timestamp__301639476 = Time__900049286;
+type UserId__158757552 = Principal;
+type UserProfile__775633023 =
+  {
+    var activityLevel : ActivityLevel__321612004;
+    var age : Nat;
+    createdAt : Timestamp__301639476;
+    var dietaryPreference : DietaryPreference__723506903;
+    var gender : Gender__322156353;
+    var goal : Goal__390734731;
+    var heightCm : Float;
+    id : UserId__158757552;
+    var name : Text;
+    var weightKg : Float
+  };
+type WorkoutLogEntry__801892383 =
+  {
+    completed : Bool;
+    date : Timestamp__301639476;
+    id : Id__389469852;
+    notes : Text;
+    routineName : Text;
+    userId : UserId__158757552
+  };
+type WorkoutRoutine__72174823 =
+  {
+    description : Text;
+    exerciseIds : [Id__389469852];
+    fitnessLevel : FitnessLevel__143429010;
+    id : Id__389469852;
+    name : Text
+  };
+actor {
+  stable exercises :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Exercise__676377649]];
+      var elementIndex : Nat__490723111
+    };
+  stable foodLogs :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?FoodLogEntry__726807189]];
+      var elementIndex : Nat__490723111
+    };
+  stable healthLogs :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?HealthMetricLog__366084782]];
+      var elementIndex : Nat__490723111
+    };
+  stable meals :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Meal__906604321]];
+      var elementIndex : Nat__490723111
+    };
+  stable nextFoodLogId :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Nat]];
+      var elementIndex : Nat__490723111
+    };
+  stable nextHealthLogId :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Nat]];
+      var elementIndex : Nat__490723111
+    };
+  stable nextProgressId :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Nat]];
+      var elementIndex : Nat__490723111
+    };
+  stable nextWorkoutLogId :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Nat]];
+      var elementIndex : Nat__490723111
+    };
+  stable progressRecords :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ProgressRecord__110713479]];
+      var elementIndex : Nat__490723111
+    };
+  stable routines :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?WorkoutRoutine__72174823]];
+      var elementIndex : Nat__490723111
+    };
+  stable users :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?UserProfile__775633023]];
+      var elementIndex : Nat__490723111
+    };
+  stable workoutLogs :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?WorkoutLogEntry__801892383]];
+      var elementIndex : Nat__490723111
+    }
+};

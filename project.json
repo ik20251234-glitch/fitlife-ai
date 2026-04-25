@@ -1,0 +1,25 @@
+{
+  "overview": "FitLife AI is a personalized fitness and nutrition management platform. It calculates your BMI and BMR, generates customized meal plans based on your dietary preferences and goals, provides a curated exercise library with video tutorials, and tracks your weekly progress with visual charts.",
+  "features": [
+    "Internet Identity login with protected pages",
+    "BMI and BMR calculator with health category badges",
+    "Personalized meal plans for Vegetarian and Non-Vegetarian diets",
+    "Daily caloric target tracking with food logging",
+    "Exercise library with 25+ exercises and embedded YouTube tutorials",
+    "Workout routine builder and logging",
+    "Weekly progress dashboard with BMI trend, caloric intake, and workout consistency charts"
+  ],
+  "category": "productivity",
+  "tags": [
+    "fitness",
+    "nutrition",
+    "health",
+    "bmi",
+    "bmr",
+    "meal-planning",
+    "exercise",
+    "progress-tracking",
+    "wellness"
+  ],
+  "last_updated": "2026-04-25T19:10:02.423Z"
+}
